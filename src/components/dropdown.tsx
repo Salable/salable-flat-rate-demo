@@ -5,7 +5,6 @@ import {useOnClickOutside} from "usehooks-ts";
 import {destroySession} from "@/app/actions/sessions";
 import {useRouter} from "next/navigation";
 import LoadingSpinner from "@/components/loading-spinner";
-import { Session } from "@/app/actions/sign-in";
 
 export type User = {
   uuid: string;

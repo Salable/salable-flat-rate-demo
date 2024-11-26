@@ -12,6 +12,8 @@ import { Result } from "@/app/actions/checkout-link";
 export const Header = async () => {
   const user = await getUser();
 
+  console.log(user)
+
   return (
     <header className='bg-white px-6'>
       <div className='max-w-[1000px] m-auto py-4 flex justify-between items-center'>

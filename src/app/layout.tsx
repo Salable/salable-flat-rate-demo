@@ -15,7 +15,7 @@ export default async function RootLayout({
     <html lang="en" className='bg-gray-100 font-sans'>
       <body className={`${inter.className}`}>
         <Header />
-        <div className='py-10 px-6 text-sm'>
+        <div className='p-6 md:py-10 md:px-6 text-sm'>
           <ToastContainer autoClose={2000} hideProgressBar={true} />
           {children}
         </div>

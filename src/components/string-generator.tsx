@@ -115,11 +115,8 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
             <div>
               To start creating secure strings subscribe to a plan from our pricing table and get started!
             </div>
-            <div className='flex mt-2'>
-              <Link
-                href={'/pricing'}
-                className='p-2 text-white rounded-md leading-none bg-blue-700'
-              >
+            <div className='mt-3'>
+              <Link href={'/pricing'} className='inline-block p-3 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition'>
                 Pricing
               </Link>
             </div>

@@ -2,7 +2,7 @@
 import {salableApiBaseUrl} from "@/app/constants";
 import {env} from "@/app/environment";
 import {revalidatePath} from "next/cache";
-import {getOneSubscription, SalableSubscription} from "@/fetch/subscriptions";
+import {getOneSubscription} from "@/fetch/subscriptions";
 import {getErrorMessage} from "@/app/actions/get-error-message";
 import { Result } from "../checkout-link";
 

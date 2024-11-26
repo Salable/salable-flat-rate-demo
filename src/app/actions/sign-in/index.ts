@@ -52,6 +52,7 @@ export async function signIn(formData: SignInRequestBody) {
     await session.save();
 
   } catch (e) {
+    console.log(e)
     return {
       data: null,
       error: 'Unknown error'

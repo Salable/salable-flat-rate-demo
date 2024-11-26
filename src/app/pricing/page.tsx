@@ -15,7 +15,7 @@ export const metadata = {
 export default async function Pricing() {
   const session = await getSession()
 
-  const check = session?.uuid ? await licenseCheck(session?.uuid) : {
+  const check = session?.uuid ? await licenseCheck(session.uuid) : {
     data: null, error: null
   }
 
@@ -65,7 +65,7 @@ export default async function Pricing() {
                         className='block p-4 text-white rounded-md leading-none bg-blue-700 w-full text-center'>Downgrade
                     to Basic</Link>
                 ) : (
-                  <PlanButton session={session} planUuid={salableBasicPlanUuid}/>
+                  <PlanButton session={session} planUuid={salableBasicPlanUuid} />
                 )
               ) : (
                 <Link

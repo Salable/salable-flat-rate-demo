@@ -8,7 +8,6 @@ import {env} from "@/app/environment";
 import { Result } from "./actions/checkout-link";
 import { Session } from "./actions/sign-in";
 import {getErrorMessage} from "@/app/actions/get-error-message";
-import {toast} from "react-toastify";
 
 export const metadata = {
   title: 'Salable flat rate demo',

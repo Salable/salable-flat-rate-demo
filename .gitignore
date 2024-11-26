@@ -40,3 +40,4 @@ next-env.d.ts
 local.db
 dump.sql
 flat-rate-demo-local.db
+dev.db

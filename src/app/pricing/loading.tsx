@@ -3,10 +3,10 @@ import React from "react";
 export default function Loading () {
   return (
     <div className='max-w-[1000px] mx-auto animate-pulse'>
-      <div className='grid grid-cols-3 gap-6'>
+      <div className='md:grid md:grid-cols-3 md:gap-6'>
 
         {[...new Array(2)].map((_, i) => (
-          <div className='p-6 rounded-lg bg-white shadow flex-col' key={`loading-plan-${i}`}>
+          <div className='p-6 rounded-lg bg-white shadow flex-col mb-6 md:mb-0' key={`loading-plan-${i}`}>
             <div className="h-[32px] bg-slate-300 rounded w-[75px]"></div>
             <div className='flex items-end mt-3'>
               <div className="h-[38px] w-[36px] bg-slate-300 rounded mr-2"></div>
