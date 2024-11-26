@@ -14,6 +14,7 @@ type CreateStringRequestBody = z.infer<typeof ZodCreateStringRequestBody>
 
 export const generateString = async (formData: CreateStringRequestBody) =>{
   try {
+    const data = ZodCreateStringRequestBody.parse(formData)
     const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
     if (!session?.uuid) {
       return {
@@ -21,7 +22,7 @@ export const generateString = async (formData: CreateStringRequestBody) =>{
         error: 'Unauthorised'
       }
     }
-    const bytes = Number(formData.bytes)
+    const bytes = Number(data.bytes)
     if (!bytes) return {data: null, error: 'Invalid bytes size'};
 
     const check = await licenseCheck(session.uuid)

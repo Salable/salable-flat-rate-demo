@@ -12,8 +12,6 @@ import { Result } from "@/app/actions/checkout-link";
 export const Header = async () => {
   const user = await getUser();
 
-  console.log(user)
-
   return (
     <header className='bg-white px-6'>
       <div className='max-w-[1000px] m-auto py-4 flex justify-between items-center'>
@@ -28,7 +26,7 @@ export const Header = async () => {
             ) : user.error ? (
               <span className='text-red-600 text-sm'>{user.error}</span>
             ) : (
-              <Link className='p-3 text-white rounded-md leading-none bg-blue-700 w-full text-center text-sm' href="/sign-in">Sign in</Link>
+              <Link className='p-3 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full text-center text-sm' href="/sign-in">Sign in</Link>
             )}
           </div>
         </div>

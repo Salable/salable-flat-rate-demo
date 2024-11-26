@@ -62,7 +62,7 @@ export default async function Pricing() {
                   </div>
                 ) : check?.data?.capabilities?.find((a) => a === 'pro') && !check?.data?.capabilities?.find((a) => a === 'basic') ? (
                   <Link href='/settings/subscriptions'
-                        className='block p-4 text-white rounded-md leading-none bg-blue-700 w-full text-center'>Downgrade
+                        className='block p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full text-center'>Downgrade
                     to Basic</Link>
                 ) : (
                   <PlanButton session={session} planUuid={salableBasicPlanUuid} />
@@ -70,7 +70,7 @@ export default async function Pricing() {
               ) : (
                 <Link
                   href={`/sign-up?planUuid=${salableBasicPlanUuid}`}
-                  className='block p-4 text-white rounded-md leading-none bg-blue-700 w-full text-center'
+                  className='block p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full text-center'
                 >
                   Sign up
                 </Link>
@@ -116,7 +116,7 @@ export default async function Pricing() {
                   </div>
                 ) : check?.data?.capabilities?.find((a) => a === 'basic') && !check?.data?.capabilities?.find((a) => a === 'pro') ? (
                   <Link href='/settings/subscriptions'
-                        className='block p-4 text-white rounded-md leading-none bg-blue-700 w-full text-center'>Upgrade to
+                        className='block p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full text-center'>Upgrade to
                     Pro</Link>
                 ) : (
                   <PlanButton session={session} planUuid={salableProPlanUuid}/>
@@ -124,7 +124,7 @@ export default async function Pricing() {
               ) : (
                 <Link
                   href={`/sign-up?planUuid=${salableProPlanUuid}`}
-                  className='block p-4 text-white rounded-md leading-none bg-blue-700 w-full text-center'
+                  className='block p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full text-center'
                 >
                   Sign up
                 </Link>

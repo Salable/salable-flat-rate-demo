@@ -41,7 +41,7 @@ export const SignInForm = () => {
       </fieldset>
 
       <div className='mb-4'>
-        <button className={`p-4 text-white rounded-md leading-none bg-blue-700`}>{!isSubmitting ? "Sign in" :
+        <button className={`p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition`}>{!isSubmitting ? "Sign in" :
           <div className='w-[15px]'><LoadingSpinner fill="white"/></div>}</button>
       </div>
 
@@ -51,7 +51,7 @@ export const SignInForm = () => {
         </div>
       ) : null}
 
-      <p>Haven't got an account? <Link className='text-blue-500' href="/sign-up">Sign up</Link></p>
+      <p>{"Haven't got an account?"} <Link className='text-blue-500' href="/sign-up">Sign up</Link></p>
 
     </form>
   )

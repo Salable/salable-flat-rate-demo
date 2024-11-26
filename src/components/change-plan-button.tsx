@@ -14,7 +14,7 @@ export const ChangePlanButton = ({subscriptionUuid, planUuid}: {subscriptionUuid
         if (change?.error) toast.error(change?.error)
         setIsChangingSubscription(false)
       }}
-      className='p-4 text-white rounded-md leading-none bg-blue-700 flex items-center justify-center mr-2'
+      className='p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition flex items-center justify-center mr-2'
       disabled={isChangingSubscription}
     >
       Upgrade now

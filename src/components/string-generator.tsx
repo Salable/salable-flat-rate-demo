@@ -71,7 +71,7 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
 
           {check ? (
             <button
-              className={`p-3 text-white rounded-md leading-none bg-blue-700 text-sm`}
+              className={`p-3 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition text-sm`}
               disabled={isSubmitting}
             >{!isSubmitting ? "Generate" :
               <div className='w-[15px]'><LoadingSpinner fill="white"/></div>}</button>
@@ -85,7 +85,7 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
           <pre
             className='p-2 leading-none truncate text-lg text-center bg-white rounded-l-full'>{randomString}</pre>
           <button
-            className='rounded-r-full bg-blue-700 uppercase px-2 pr-[12px] text-white text-xs'
+            className='rounded-r-full bg-blue-700 hover:bg-blue-900 transition uppercase px-2 pr-[12px] text-white text-xs'
             onClick={() => navigator.clipboard.writeText(randomString)}
           >
             Copy
@@ -102,7 +102,7 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
             <div className='flex mt-2'>
               <Link
                 href={'/settings/subscriptions'}
-                className='p-2 text-white rounded-md leading-none bg-blue-700'
+                className='p-2 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition'
               >Upgrade now</Link>
             </div>
           </div>

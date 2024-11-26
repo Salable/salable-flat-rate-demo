@@ -12,7 +12,7 @@ export const PlanButton = ({session, planUuid}: {session: Session, planUuid: str
   return (
     <div className='flex-col w-full'>
       <button
-        className={`p-4 text-white rounded-md leading-none bg-blue-700 w-full flex justify-center`}
+        className={`p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition w-full flex justify-center`}
         onClick={async () => {
           let url = null
           setError(null)
