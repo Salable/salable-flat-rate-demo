@@ -113,7 +113,7 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
         <div className='flex justify-center max-w-[400px] mx-auto'>
           <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
             <div>
-              To start unlocking these great features head over to our pricing table and subscribe to a plan to get started!
+              To start creating secure strings subscribe to a plan from our pricing table and get started!
             </div>
             <div className='flex mt-2'>
               <Link

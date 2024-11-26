@@ -23,7 +23,7 @@ export async function signUp(formData: SignUpRequestBody, planUuid: string | nul
   try {
     const data = ZodSignUpRequestBody.parse(formData);
 
-    const existingUser = await prismaClient.users.findFirst({
+    const existingUser = await prismaClient.user.findFirst({
       where: {
         OR: [
           {email: data.email},
@@ -32,13 +32,23 @@ export async function signUp(formData: SignUpRequestBody, planUuid: string | nul
       },
     })
 
-    if (existingUser && existingUser.email === data.email) throw new Error("Email already exists")
-    if (existingUser && existingUser.username === data.username) throw new Error("Username already exists")
+    if (existingUser && existingUser.email === data.email) {
+      return {
+        data: null,
+        error: 'Email already exists'
+      }
+    }
+    if (existingUser && existingUser.username === data.username) {
+      return {
+        data: null,
+        error: 'Username already exists'
+      }
+    }
 
     const salt = randomBytes(16).toString('hex');
     const hash = hashString(data.password, salt)
 
-    const user = await prismaClient.users.create({
+    const user = await prismaClient.user.create({
       data: {
         uuid: randomUUID(),
         username: data.username,
@@ -54,13 +64,22 @@ export async function signUp(formData: SignUpRequestBody, planUuid: string | nul
     await session.save();
 
     if (planUuid) {
-      checkoutUrl = await getCheckoutLink(session, planUuid)
+      const checkoutUrlData = await getCheckoutLink(session, planUuid)
+      if (checkoutUrlData.data) {
+        checkoutUrl = checkoutUrlData.data.checkoutUrl
+      } else {
+        return {
+          data: null,
+          error: checkoutUrlData.error
+        }
+      }
     }
-
   } catch (e) {
-    const error = e as Error
-    console.log(error)
-    return {error}
+    console.log(e)
+    return {
+      data: null,
+      error: 'Unknown error'
+    }
   }
 
   revalidatePath('/')

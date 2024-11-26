@@ -6,12 +6,11 @@ import {cookies} from "next/headers";
 import {prismaClient} from "../../prisma";
 import {Dropdown} from "@/components/dropdown";
 import { Session } from "@/app/actions/sign-in";
+import {User} from "@prisma/client"
+import { Result } from "@/app/actions/checkout-link";
 
 export const Header = async () => {
-  const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
-  const user = await prismaClient.users.findUnique({
-    where: {uuid: session.uuid ?? ''}
-  })
+  const user = await getUser();
 
   return (
     <header className='bg-white px-6'>
@@ -22,11 +21,10 @@ export const Header = async () => {
         </Link>
         <div>
           <div className="flex justify-between items-center">
-            {user ? (
-              <Dropdown
-                user={user}
-                session={JSON.parse(JSON.stringify(session))}
-              />
+            {user.data?.user ? (
+              <Dropdown user={user.data.user} />
+            ) : user.error ? (
+              <span className='text-red-600 text-sm'>{user.error}</span>
             ) : (
               <Link className='p-3 text-white rounded-md leading-none bg-blue-700 w-full text-center text-sm' href="/sign-in">Sign in</Link>
             )}
@@ -35,4 +33,31 @@ export const Header = async () => {
       </div>
     </header>
   )
+}
+
+async function getUser(): Promise<Result<{
+  user: User | null,
+} | null>> {
+  try {
+    const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
+    if (!session?.uuid) {
+      return {
+        data: null,
+        error: null,
+      }
+    }
+    const user = await prismaClient.user.findUnique({
+      where: {uuid: session.uuid}
+    })
+    return {
+      data: {user},
+      error: null
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      data: null,
+      error: 'Failed to fetch user',
+    }
+  }
 }

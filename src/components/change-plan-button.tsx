@@ -11,10 +11,7 @@ export const ChangePlanButton = ({subscriptionUuid, planUuid}: {subscriptionUuid
       onClick={async () => {
         setIsChangingSubscription(true)
         const change = await changeSubscription(subscriptionUuid, planUuid)
-        if (change?.error) {
-          console.error(change.error)
-          toast.error(change?.error)
-        }
+        if (change?.error) toast.error(change?.error)
         setIsChangingSubscription(false)
       }}
       className='p-4 text-white rounded-md leading-none bg-blue-700 flex items-center justify-center mr-2'

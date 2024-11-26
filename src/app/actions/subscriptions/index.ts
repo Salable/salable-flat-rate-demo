@@ -2,8 +2,9 @@
 import {salableApiBaseUrl} from "@/app/constants";
 import {env} from "@/app/environment";
 import {revalidatePath} from "next/cache";
-import {SalableSubscription} from "@/fetch/subscriptions";
-import {handleError} from "@/app/actions/handle-error";
+import {getOneSubscription, SalableSubscription} from "@/fetch/subscriptions";
+import {getErrorMessage} from "@/app/actions/get-error-message";
+import { Result } from "../checkout-link";
 
 export type GetAllInvoicesResponse = {
   first: string;
@@ -25,7 +26,7 @@ export type GetAllInvoicesResponse = {
   }[]
 }
 
-export const getSubscriptionInvoices = async (subscriptionUuid: string) => {
+export const getSubscriptionInvoices = async (subscriptionUuid: string): Promise<Result<GetAllInvoicesResponse>> => {
   try {
     const res = await fetch(`${salableApiBaseUrl}/subscriptions/${subscriptionUuid}/invoices`, {
       headers: {
@@ -33,11 +34,24 @@ export const getSubscriptionInvoices = async (subscriptionUuid: string) => {
         version: 'v2'
       },
     })
-    if (res.ok) return await res.json() as GetAllInvoicesResponse
-    return await handleError(res, 'Subscription')
+    if (res.ok) {
+      const data = await res.json() as GetAllInvoicesResponse
+      return {
+        data, error: null
+      }
+    }
+    const error = await getErrorMessage(res, 'Subscription')
+    console.log(error)
+    return {
+      data: null,
+      error: 'Failed to fetch subscription invoices'
+    }
   } catch (e) {
     console.log(e)
-    return {error: 'Unknown error'}
+    return {
+      data: null,
+      error: 'Failed to fetch subscription invoices'
+    }
   }
 }
 
@@ -51,31 +65,28 @@ export const changeSubscription = async (subscriptionUuid: string, planUuid: str
       },
       body: JSON.stringify({planUuid})
     })
-    if (!changeSubscriptionRequest.ok) return await handleError(changeSubscriptionRequest, 'Subscription')
+    if (!changeSubscriptionRequest.ok) {
+      const error = await getErrorMessage(changeSubscriptionRequest, 'Subscription')
+      console.log(error)
+      return {
+        data: null,
+        error: 'Failed to cancel subscription'
+      }
+    }
 
     await new Promise<void>((resolve) => {
       const subscriptionPolling = setInterval(async () => {
-        const res = await fetch(`${salableApiBaseUrl}/subscriptions/${subscriptionUuid}`, {
-          headers: {
-            'x-api-key': env.SALABLE_API_KEY,
-            version: 'v2'
-          },
-        })
-        if (res.ok) {
-          const data = await res.json() as SalableSubscription
-          if (data.planUuid === planUuid) {
-            clearInterval(subscriptionPolling)
-            resolve()
-          }
-        } else {
+        const subscription = await getOneSubscription(subscriptionUuid)
+        if (subscription.data?.planUuid === planUuid) {
           clearInterval(subscriptionPolling)
+          resolve()
         }
       }, 500)
     })
 
   } catch (e) {
     console.error(e)
-    return {error: 'Unknown error'}
+    return {data: null, error: 'Failed to cancel subscription'}
   }
 
   revalidatePath(`/settings/subscriptions/${subscriptionUuid}`)
@@ -90,30 +101,30 @@ export const cancelSubscription = async (subscriptionUuid: string) => {
         version: 'v2'
       },
     })
-    if (!res.ok) return await handleError(res, 'Subscription')
+    if (!res.ok) {
+      const error = getErrorMessage(res, 'Subscription')
+      console.log(error)
+      return {
+        data: null,
+        error: 'Failed to cancel subscription'
+      }
+    }
 
     await new Promise<void>((resolve) => {
       const subscriptionPolling = setInterval(async () => {
-        const res = await fetch(`${salableApiBaseUrl}/subscriptions/${subscriptionUuid}`, {
-          headers: {
-            'x-api-key': env.SALABLE_API_KEY,
-            version: 'v2'
-          },
-        })
-        if (res.ok) {
-          const data = await res.json() as SalableSubscription
-          if (data.status === 'CANCELED') {
-            clearInterval(subscriptionPolling)
-            resolve()
-          }
-        } else {
+        const subscription = await getOneSubscription(subscriptionUuid)
+        if (subscription.data?.status === 'CANCELED') {
           clearInterval(subscriptionPolling)
+          resolve()
         }
       }, 500)
     })
   } catch (e) {
-    console.error(e)
-    return {error: 'Unknown error'}
+    console.log(e)
+    return {
+      data: null,
+      error: 'Failed to cancel subscription'
+    }
   }
   revalidatePath(`/settings/subscriptions/${subscriptionUuid}`)
 }

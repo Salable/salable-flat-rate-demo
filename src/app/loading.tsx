@@ -11,7 +11,7 @@ export default function Loading() {
         <div className='animate-pulse flex justify-center items-center mt-6'>
           <div className="mr-2 h-2 bg-slate-300 rounded w-[40px]"></div>
           {[...new Array(4)].map((_, i) => (
-            <div className="mr-2 h-[43px] w-[43px] bg-slate-300 rounded-md"></div>
+            <div className="mr-2 h-[43px] w-[43px] bg-slate-300 rounded-md" key={`loading-byte-option-${i}`}></div>
           ))}
           <div className="mr-2 h-[43px] w-[84px] bg-slate-300 rounded-md"></div>
         </div>

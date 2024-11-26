@@ -11,38 +11,33 @@ export const SignInForm = () => {
     password: string;
   }>();
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      const signInAction = await signIn(data)
-      if (signInAction.error) {
-        setError("root.serverError", {
-          type: "400",
-          message: signInAction.error.message
-        })
-      }
-    } catch (e) {
-      console.log(e)
+    const signInAction = await signIn(data)
+    if (signInAction.error) {
+      setError("root.serverError", {
+        message: signInAction.error
+      })
     }
   });
   return (
     <form onSubmit={onSubmit} className='grid gap-3'>
       <fieldset>
-        <input className='p-3 w-full' {...register("username", {
+        <input className={`p-3 w-full ${errors.username ? ' border-2 border-red-600' : ''}`} {...register("username", {
           required: {
             value: true,
             message: 'Username is required'
           },
         })} placeholder="Username"/>
-        {errors.username && <p className='text-red-600'>{errors.username.message}</p>}
+        {errors.username ? <p className='text-red-600 mt-1'>{errors.username.message}</p> : null}
       </fieldset>
 
       <fieldset>
-        <input type="password" className='p-3 w-full' {...register("password", {
+        <input type="password" className={`p-3 w-full ${errors.username ? ' border-2 border-red-600' : ''}`} {...register("password", {
           required: {
             value: true,
             message: 'Password is required'
           },
         })} placeholder="Password"/>
-        {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
+        {errors.password ? <p className='text-red-600 mt-1'>{errors.password.message}</p> : null}
       </fieldset>
 
       <div className='mb-4'>

@@ -15,16 +15,12 @@ export const SignUpForm = () => {
     password: string;
   }>();
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      const signInAction = await signUp(data, planUuid)
-      if (signInAction.error) {
-        setError("root.serverError", {
-          type: "400",
-          message: signInAction.error.message
-        })
-      }
-    } catch (e) {
-      console.log(e)
+    const signInAction = await signUp(data, planUuid)
+    if (signInAction?.error) {
+      setError("root.serverError", {
+        type: "400",
+        message: signInAction.error
+      })
     }
   });
   return (

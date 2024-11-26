@@ -23,13 +23,28 @@ export async function signIn(formData: SignInRequestBody) {
   try {
     const data = ZodSignInRequestBody.parse(formData)
 
-    const user = await prismaClient.users.findUnique({where: {username: data.username}})
-    if (!user) throw new Error("User not found")
+    const user = await prismaClient.user.findUnique({where: {username: data.username}})
+    if (!user) {
+      return {
+        data: null,
+        error: 'User not found'
+      }
+    }
 
-    if (!user.salt || !user.hash) throw new Error("Sign in failed")
+    if (!user.salt || !user.hash) {
+      return {
+        data: null,
+        error: 'Sign in failed',
+      }
+    }
 
     const validLogin = validateHash(data.password, user.salt, user.hash)
-    if (!validLogin) throw new Error("Incorrect password")
+    if (!validLogin) {
+      return {
+        data: null,
+        error: 'Incorrect password',
+      }
+    }
 
     const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
     session.uuid = user.uuid;
@@ -37,8 +52,10 @@ export async function signIn(formData: SignInRequestBody) {
     await session.save();
 
   } catch (e) {
-    const error = e as Error
-    return {error}
+    return {
+      data: null,
+      error: 'Unknown error'
+    }
   }
   revalidatePath('/')
   redirect('/')

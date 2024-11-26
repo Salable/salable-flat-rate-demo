@@ -13,7 +13,7 @@ export type User = {
   email: string;
 }
 
-export const Dropdown = ({user, session}: {user: User, session: Session}) => {
+export const Dropdown = ({user}: {user: User | null}) => {
   const router = useRouter();
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
@@ -25,7 +25,7 @@ export const Dropdown = ({user, session}: {user: User, session: Session}) => {
 
   return (
     <>
-      {session.uuid && user.username ? (
+      {user?.username ? (
         <div className={`relative hover:bg-white bg-white rounded-br-none`}>
           <button
             className='w-[38px] h-[38px] cursor-pointer rounded-full bg-blue-200 leading-none flex items-center justify-center'

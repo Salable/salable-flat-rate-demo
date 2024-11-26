@@ -1,20 +1,29 @@
 import {env} from "@/app/environment";
 import {salableApiBaseUrl, salableProductUuid} from "@/app/constants";
 import {LicenseCheckResponse} from "@/components/string-generator";
+import {Result} from "@/app/actions/checkout-link";
+import {getErrorMessage} from "@/app/actions/get-error-message";
 
-export async function licenseCheck(granteeId: string) {
+export async function licenseCheck(granteeId: string): Promise<Result<LicenseCheckResponse | null>> {
   try {
     const res = await fetch(`${salableApiBaseUrl}/licenses/check?granteeIds=${granteeId}&productUuid=${salableProductUuid}`, {
       headers: { 'x-api-key': env.SALABLE_API_KEY },
       cache: "no-store"
     })
-    const headers = new Headers(res.headers)
-    const headersMap = new Map(headers)
-    if (headersMap.get('content-type') === 'text/plain') {
-      return null
+    if (res.ok) {
+      if (res.headers.get('content-type') === 'text/plain') {
+        return {data: null, error: null}
+      }
+      const data = await res.json() as LicenseCheckResponse
+      return {data, error: null}
     }
-    return await res.json() as LicenseCheckResponse
+    const error = await getErrorMessage(res, 'Plan')
+    return {data: null, error}
   } catch (e) {
-    console.error(e)
+    console.log(e)
+    return {
+      data: null,
+      error: 'Unknown error'
+    }
   }
 }

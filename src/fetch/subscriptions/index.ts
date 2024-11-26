@@ -3,6 +3,8 @@ import {getIronSession} from "iron-session";
 import {cookies} from "next/headers";
 import {salableApiBaseUrl} from "@/app/constants";
 import {Session} from "@/app/actions/sign-in";
+import {getErrorMessage} from "@/app/actions/get-error-message";
+import { Result } from "@/app/actions/checkout-link";
 
 export type SalableSubscription = {
   uuid: string,
@@ -61,34 +63,68 @@ export type GetAllSubscriptionsResponse = {
 
 export async function getAllSubscriptions(params?: {
   status?: string
-}) {
-  const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
-  if (!session) throw new Error("No session found");
-  const fetchParams = new URLSearchParams({
-    ...params,
-    email: session.email,
-    expand: 'plan'
-  });
-  const res = await fetch(`${salableApiBaseUrl}/subscriptions?${fetchParams.toString()}`, {
-    headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2', cache: 'no-cache' },
-  })
-  const data = await res.json()
-  if (res.ok) return data as GetAllSubscriptionsResponse
-
-  throw new Error(data.error ?? 'Bad request')
-}
-
-export async function getOneSubscription(uuid: string) {
+}): Promise<Result<GetAllSubscriptionsResponse>> {
   try {
-    const res = await fetch(`${salableApiBaseUrl}/subscriptions/${uuid}?expand=[plan.currencies]`, {
-      headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2' },
-    })
-    const data = await res.json()
-    if (res.ok) {
-      return data as SalableSubscription
+    const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
+    if (!session) {
+      return {
+        data: null,
+        error: 'Unauthorised'
+      }
     }
-    throw new Error(data)
+    const fetchParams = new URLSearchParams({
+      ...params,
+      email: session.email,
+      expand: 'plan'
+    });
+    const res = await fetch(`${salableApiBaseUrl}/subscriptions?${fetchParams.toString()}`, {
+      headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2', cache: 'no-cache' },
+    })
+    if (res.ok) {
+      const data = await res.json()
+      return {
+        data: data as GetAllSubscriptionsResponse,
+        error: null
+      }
+    }
+    const error = await getErrorMessage(res)
+    console.log(error)
+    return {
+      data: null,
+      error: 'Failed to fetch subscriptions',
+    }
   } catch (e) {
     console.log(e)
+    return {
+      data: null,
+      error: 'Failed to fetch subscriptions',
+    }
+  }
+}
+
+export async function getOneSubscription(uuid: string): Promise<Result<SalableSubscription>> {
+  try {
+    const res = await fetch(`${salableApiBaseUrl}/subscriptions/${uuid}?expand=plan.currencies`, {
+      headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2' },
+    })
+    if (res.ok) {
+      const data = await res.json()
+      return {
+        data: data as SalableSubscription,
+        error: null,
+      }
+    }
+    const error = await getErrorMessage(res)
+    console.log(error)
+    return {
+      data: null,
+      error: 'Failed to fetch subscription',
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      data: null,
+      error: 'Failed to fetch subscription',
+    }
   }
 }
