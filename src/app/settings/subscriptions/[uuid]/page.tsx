@@ -46,7 +46,11 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ u
             <>
               <div>
                 <div className='flex'>
-                  <ChangePlanButton subscriptionUuid={uuid} planUuid={subscription.data.planUuid === salableProPlanUuid ? salableBasicPlanUuid : salableProPlanUuid} />
+                  <ChangePlanButton
+                    subscriptionUuid={uuid}
+                    planUuid={subscription.data.planUuid === salableProPlanUuid ? salableBasicPlanUuid : salableProPlanUuid}
+                    planName={subscription.data.planUuid === salableProPlanUuid ? 'Basic plan' : 'Pro plan'}
+                  />
                   <CancelPlanButton subscriptionUuid={uuid} />
                 </div>
               </div>

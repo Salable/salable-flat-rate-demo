@@ -29,10 +29,9 @@ export default async function Home({searchParams}: {
   searchParams: Promise<Record<string, string>>
 }) {
   const session = await getSession();
-  if (!session?.uuid) redirect('/sign-up')
 
   const search = await searchParams
-  if (search.planUuid) {
+  if (search.planUuid && session?.uuid) {
     await new Promise<void>((resolve) => {
       const licensesPolling = setInterval(async () => {
         const data = await getLicenses(session, search.planUuid);
@@ -44,7 +43,9 @@ export default async function Home({searchParams}: {
       }, 500)
     })
   }
-  const check = await licenseCheck(session.uuid)
+  const check = session?.uuid ? await licenseCheck(session.uuid) : {
+    data: null, error: null
+  }
 
   return (
 
