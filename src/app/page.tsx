@@ -1,7 +1,6 @@
 import {licenseCheck} from "@/fetch/licenses/check";
 import React from "react";
 import {StringGenerator} from "@/components/string-generator";
-import {redirect} from "next/navigation";
 import {getSession} from "@/fetch/session";
 import {salableApiBaseUrl} from "@/app/constants";
 import {env} from "@/app/environment";
