@@ -5,7 +5,6 @@ import {LockIcon} from "@/components/icons/lock-icon";
 import LoadingSpinner from "@/components/loading-spinner";
 import {generateString} from "@/app/actions/strings";
 import {toast} from "react-toastify";
-import Link from "next/link";
 
 export type Bytes = '16' | '32' | '64' | '128'
 export type LicenseCheckResponse = {

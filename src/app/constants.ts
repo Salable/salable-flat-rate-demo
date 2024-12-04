@@ -1,4 +1,4 @@
-import {Bytes} from "@/components/string-generator-form";
+import {Bytes} from "@/components/forms/string-generator-form";
 
 if (!process.env.NEXT_PUBLIC_SALABLE_PLAN_UUID) throw new Error('Missing env NEXT_PUBLIC_SALABLE_PLAN_UUID')
 if (!process.env.NEXT_PUBLIC_SALABLE_PRO_PLAN_UUID) throw new Error('Missing env NEXT_PUBLIC_SALABLE_PRO_PLAN_UUID')

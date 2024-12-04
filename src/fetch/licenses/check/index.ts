@@ -1,6 +1,6 @@
 import {env} from "@/app/environment";
 import {salableApiBaseUrl, salableProductUuid} from "@/app/constants";
-import {LicenseCheckResponse} from "@/components/string-generator-form";
+import {LicenseCheckResponse} from "@/components/forms/string-generator-form";
 import {Result} from "@/app/actions/checkout-link";
 import {getErrorMessage} from "@/app/actions/get-error-message";
 

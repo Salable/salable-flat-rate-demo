@@ -1,6 +1,6 @@
 import {licenseCheck} from "@/fetch/licenses/check";
 import React, {Suspense} from "react";
-import {StringGeneratorForm} from "@/components/string-generator-form";
+import {StringGeneratorForm} from "@/components/forms/string-generator-form";
 import {getSession} from "@/fetch/session";
 import {bytes, salableApiBaseUrl} from "@/app/constants";
 import {env} from "@/app/environment";
@@ -124,6 +124,7 @@ const Loading = () => {
       {bytes.map((size, i) => (
         <div
           className={`p-3 inline-flex items-center leading-none border-2 mr-2 rounded-md bg-gray-200`}
+          key={`loading-${i}`}
         >
           {size}
           <div className='ml-1'><LockIcon height={14} width={14} fill='black'/></div>

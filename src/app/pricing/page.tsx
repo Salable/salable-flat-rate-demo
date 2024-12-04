@@ -105,6 +105,12 @@ const BasicPlanPricingTableButton = async () => {
   const check = session?.uuid ? await licenseCheck(session.uuid) : {
     data: null, error: null
   }
+  if (check.error) {
+    return (
+      <FetchError error='Failed to create button' />
+    )
+  }
+
   return (
     <>
       {check?.data?.capabilities?.find((a) => a === 'basic') ? (
@@ -139,6 +145,12 @@ const ProPlanPricingTableButton = async () => {
   const check = session?.uuid ? await licenseCheck(session.uuid) : {
     data: null, error: null
   }
+  if (check.error) {
+    return (
+      <FetchError error='Failed to create button' />
+    )
+  }
+
   return (
     <>
       {check?.data?.capabilities?.find((a) => a === 'pro') ? (

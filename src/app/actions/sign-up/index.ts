@@ -6,7 +6,6 @@ import {cookies} from "next/headers";
 import {Session} from "@/app/actions/sign-in";
 import {z} from "zod";
 import {prismaClient} from "../../../../prisma";
-import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {getCheckoutLink} from "@/app/actions/checkout-link";
 import {env} from "@/app/environment";
