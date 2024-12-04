@@ -8,6 +8,7 @@ import {Dropdown} from "@/components/dropdown";
 import { Session } from "@/app/actions/sign-in";
 import {User} from "@prisma/client"
 import { Result } from "@/app/actions/checkout-link";
+import {env} from "@/app/environment";
 
 export const Header = async () => {
   const user = await getUser();
@@ -39,7 +40,7 @@ async function getUser(): Promise<Result<{
   user: User | null,
 } | null>> {
   try {
-    const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
+    const session = await getIronSession<Session>(await cookies(), { password: env.SESSION_COOKIE_PASSWORD, cookieName: env.SESSION_COOKIE_NAME });
     if (!session?.uuid) {
       return {
         data: null,

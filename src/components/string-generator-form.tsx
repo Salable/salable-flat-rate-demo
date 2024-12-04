@@ -16,7 +16,7 @@ export type LicenseCheckResponse = {
   capabilitiesEndDates: Record<string, string>
 }
 
-export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) => {
+export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null}) => {
   const [randomString, setRandomString] = useState<string | null>(null)
   const {register, handleSubmit, watch, formState: {isSubmitting}} = useForm<{
     bytes: Bytes
@@ -92,37 +92,7 @@ export const StringGenerator = ({check}: {check: LicenseCheckResponse | null}) =
           </button>
         </div>
       ) : null}
-
-      {check && !check.capabilitiesEndDates['128'] ? (
-        <div className='flex justify-center'>
-          <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
-            <div>
-              Upgrade to Pro to unlock <span className='font-bold'>128 Byte strings</span>
-            </div>
-            <div className='flex mt-2'>
-              <Link
-                href={'/settings/subscriptions'}
-                className='p-2 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition'
-              >Upgrade now</Link>
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      {!check ? (
-        <div className='flex justify-center max-w-[400px] mx-auto'>
-          <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
-            <div>
-              To start creating secure strings subscribe to a plan from our pricing table and get started!
-            </div>
-            <div className='mt-3'>
-              <Link href={'/pricing'} className='inline-block p-3 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition'>
-                Pricing
-              </Link>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   )
 }
+

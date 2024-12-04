@@ -74,16 +74,21 @@ export const changeSubscription = async (subscriptionUuid: string, planUuid: str
       }
     }
 
-    await new Promise<void>((resolve) => {
-      const subscriptionPolling = setInterval(async () => {
-        const subscription = await getOneSubscription(subscriptionUuid)
-        if (subscription.data?.planUuid === planUuid) {
-          clearInterval(subscriptionPolling)
-          resolve()
+    await new Promise<void>(async (resolve) => {
+      while (true) {
+        try {
+          const subscription = await getOneSubscription(subscriptionUuid)
+          if (subscription.data?.planUuid === planUuid) {
+            resolve()
+            break
+          }
+          await new Promise(r => setTimeout(r, 500));
+        } catch (e) {
+          console.log(e)
+          break
         }
-      }, 500)
+      }
     })
-
   } catch (e) {
     console.error(e)
     return {data: null, error: 'Failed to cancel subscription'}
@@ -110,14 +115,20 @@ export const cancelSubscription = async (subscriptionUuid: string) => {
       }
     }
 
-    await new Promise<void>((resolve) => {
-      const subscriptionPolling = setInterval(async () => {
-        const subscription = await getOneSubscription(subscriptionUuid)
-        if (subscription.data?.status === 'CANCELED') {
-          clearInterval(subscriptionPolling)
-          resolve()
+    await new Promise<void>(async (resolve) => {
+      while (true) {
+        try {
+          const subscription = await getOneSubscription(subscriptionUuid)
+          if (subscription.data?.status === 'CANCELED') {
+            resolve()
+            break
+          }
+          await new Promise(r => setTimeout(r, 500));
+        } catch (e) {
+          console.log(e)
+          break
         }
-      }, 500)
+      }
     })
   } catch (e) {
     console.log(e)

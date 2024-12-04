@@ -65,7 +65,7 @@ export async function getAllSubscriptions(params?: {
   status?: string
 }): Promise<Result<GetAllSubscriptionsResponse>> {
   try {
-    const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
+    const session = await getIronSession<Session>(await cookies(), { password: env.SESSION_COOKIE_PASSWORD, cookieName: env.SESSION_COOKIE_NAME });
     if (!session) {
       return {
         data: null,
@@ -75,7 +75,8 @@ export async function getAllSubscriptions(params?: {
     const fetchParams = new URLSearchParams({
       ...params,
       email: session.email,
-      expand: 'plan'
+      sort: 'desc',
+      expand: 'plan',
     });
     const res = await fetch(`${salableApiBaseUrl}/subscriptions?${fetchParams.toString()}`, {
       headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2', cache: 'no-cache' },

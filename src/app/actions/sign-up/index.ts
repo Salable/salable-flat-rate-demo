@@ -9,19 +9,20 @@ import {prismaClient} from "../../../../prisma";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {getCheckoutLink} from "@/app/actions/checkout-link";
+import {env} from "@/app/environment";
 
-const ZodSignUpRequestBody = z.object({
+const signUpRequestBody = z.object({
   username: z.string(),
   email: z.string().email(),
   password: z.string(),
 });
 
-type SignUpRequestBody = z.infer<typeof ZodSignUpRequestBody>
+type SignUpRequestBody = z.infer<typeof signUpRequestBody>
 
 export async function signUp(formData: SignUpRequestBody, planUuid: string | null) {
   let checkoutUrl: string | null = null
   try {
-    const data = ZodSignUpRequestBody.parse(formData);
+    const data = signUpRequestBody.parse(formData);
 
     const existingUser = await prismaClient.user.findFirst({
       where: {
@@ -58,7 +59,7 @@ export async function signUp(formData: SignUpRequestBody, planUuid: string | nul
       }
     })
 
-    const session = await getIronSession<Session>(await cookies(), { password: 'Q2cHasU797hca8iQ908vsLTdeXwK3BdY', cookieName: "salable-session-flat-rate" });
+    const session = await getIronSession<Session>(await cookies(), { password: env.SESSION_COOKIE_PASSWORD, cookieName: env.SESSION_COOKIE_NAME });
     session.uuid = user.uuid;
     session.email = user.email
     await session.save();
@@ -82,6 +83,5 @@ export async function signUp(formData: SignUpRequestBody, planUuid: string | nul
     }
   }
 
-  revalidatePath('/')
   redirect(checkoutUrl ?? '/')
 }

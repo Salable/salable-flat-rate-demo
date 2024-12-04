@@ -3,7 +3,6 @@ import React from "react";
 
 export const metadata = {
   title: 'Sign in',
-  description: '.....'
 }
 
 export default async function SignInPage() {

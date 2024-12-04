@@ -71,7 +71,7 @@ export const SignUpForm = () => {
         </div>
       ) : null}
 
-      <p>Already got an account? <Link className='text-blue-500' href="/sign-in">Sign in</Link></p>
+      <p>Already got an account? <Link className='text-blue-700 hover:underline' href="/sign-in">Sign in</Link></p>
     </form>
   )
 }

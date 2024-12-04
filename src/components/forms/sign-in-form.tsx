@@ -18,6 +18,7 @@ export const SignInForm = () => {
       })
     }
   });
+
   return (
     <form onSubmit={onSubmit} className='grid gap-3'>
       <fieldset>
@@ -29,7 +30,6 @@ export const SignInForm = () => {
         })} placeholder="Username"/>
         {errors.username ? <p className='text-red-600 mt-1'>{errors.username.message}</p> : null}
       </fieldset>
-
       <fieldset>
         <input type="password" className={`p-3 w-full ${errors.username ? ' border-2 border-red-600' : ''}`} {...register("password", {
           required: {
@@ -39,20 +39,16 @@ export const SignInForm = () => {
         })} placeholder="Password"/>
         {errors.password ? <p className='text-red-600 mt-1'>{errors.password.message}</p> : null}
       </fieldset>
-
       <div className='mb-4'>
         <button className={`p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition`}>{!isSubmitting ? "Sign in" :
           <div className='w-[15px]'><LoadingSpinner fill="white"/></div>}</button>
       </div>
-
       {errors.root?.serverError ? (
         <div className='bg-red-500 text-white p-2 rounded-sm'>
           {errors.root?.serverError.message}
         </div>
       ) : null}
-
-      <p>{"Haven't got an account?"} <Link className='text-blue-500' href="/sign-up">Sign up</Link></p>
-
+      <p>{"Haven't got an account?"} <Link className='text-blue-700 hover:underline' href="/sign-up">Sign up</Link></p>
     </form>
   )
 }
