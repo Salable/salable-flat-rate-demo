@@ -27,4 +27,4 @@ Cardholder name can be any name.
 User details are stored in a Turso database, and passwords are securely hashed with unique salts. The ID of the logged-in user is used as the `granteeId` when creating a license on Salable and is also used for the Salable license checks. If you're developing an app within an existing ecosystem like Trello or Slack, you can swap out these authentication checks with their native authentication systems.
 
 ### User sessions
-Iron session to store user session data. [View docs](https://github.com/vvo/iron-session)
+[Iron Session](https://github.com/vvo/iron-session) to store user session data. 
