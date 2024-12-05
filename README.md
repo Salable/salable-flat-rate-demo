@@ -1,6 +1,6 @@
 # Salable "flat rate" web app demo
 
-This demo is to demonstrate using [flat rate](https://www.salable.app/features/flat-rate-pricing) billing with Salable.
+This app demonstrates using [flat rate](https://www.salable.app/features/flat-rate-pricing) billing with Salable.
 
 ## Tech stack
 - [Next.js](http://Next.js)
