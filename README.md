@@ -24,8 +24,11 @@ Cardholder name can be any name.
 
 
 ## Auth
-Custom auth for users which stores passwords in a salt hash in Turso db. The id for the logged-in user is used for the granteeId when a license is created on Salable. The user id is then used in the Salable license check.
-If you are creating an app within an ecosystem like trello or slack the auth checks can be swapped with their auth.
-If you are creating a standalone app there are other third party auth solutions such as [Clerk](https://clerk.com/) or [Auth.js](http://Auth.js) that can be used instead
+User details are stored in a Turso database, and passwords are securely hashed with unique salts.
+
+The ID of the logged-in user is used as the `granteeId` when creating a license on Salable and is also used for the Salable license checks.
+
+If you're developing an app within an existing ecosystem like Trello or Slack, you can swap out these authentication checks with their native authentication systems.
+
 ### User sessions
 Iron session to store user session data. [View docs](https://github.com/vvo/iron-session)
