@@ -27,7 +27,7 @@ export const generateString = async (formData: CreateStringRequestBody) =>{
     if (!bytes) return {data: null, error: 'Invalid bytes size'};
 
     const check = await licenseCheck(session.uuid)
-    if (!check.data?.capabilitiesEndDates[formData.bytes]) {
+    if (!check.data?.capabilities.find((c) => c.capability === formData.bytes)) {
       return {
         data: null,
         error: 'Unauthorised'

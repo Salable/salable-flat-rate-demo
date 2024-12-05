@@ -8,11 +8,11 @@ import {toast} from "react-toastify";
 
 export type Bytes = '16' | '32' | '64' | '128'
 export type LicenseCheckResponse = {
-  capabilities: string[],
-  publicHash: string,
+  capabilities: {
+    capability: string;
+    expiry: string
+  }[],
   signature: string,
-  capsHashed: string,
-  capabilitiesEndDates: Record<string, string>
 }
 
 export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null}) => {
@@ -65,7 +65,7 @@ export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null
         <div className='flex justify-center items-center'>
           <h2 className='text-center mr-3'>Bytes</h2>
           {bytes.map((byte, index) => (
-            <Byte size={byte} capability={!!check?.capabilitiesEndDates[byte]} key={`${byte}-${index}`} />
+            <Byte size={byte} capability={!!check?.capabilities.find((c) => c.capability === byte)} key={`${byte}-${index}`} />
           ))}
 
           {check ? (
@@ -81,17 +81,35 @@ export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null
 
       {randomString ? (
         <div className='mt-6 relative text-center flex justify-center'>
-          <pre
-            className='p-2 leading-none truncate text-lg text-center bg-white rounded-l-full'>{randomString}</pre>
-          <button
-            className='rounded-r-full bg-blue-700 hover:bg-blue-900 transition uppercase px-2 pr-[12px] text-white text-xs'
-            onClick={() => navigator.clipboard.writeText(randomString)}
-          >
-            Copy
-          </button>
+          <pre className='p-2 leading-none truncate text-lg text-center bg-white rounded-l-full'>{randomString}</pre>
+          <CopyButton text={randomString} />
         </div>
       ) : null}
     </div>
+  )
+}
+
+const CopyButton = ({text}: {text: string}) => {
+  const [showMessage, setShowMessage] = useState(false)
+  return (
+    <button
+      className='rounded-r-full bg-blue-700 hover:bg-blue-900 transition uppercase px-2 pr-[12px] text-white text-xs relative'
+      onClick={() => {
+        navigator.clipboard.writeText(text)
+        setShowMessage(true)
+        setTimeout(() => {
+          setShowMessage(false)
+        }, 600)
+      }}
+    >
+      Copy
+      <span
+        aria-disabled={true}
+        className={`absolute p-2 leading-none bg-black text-white top-[-30px] right-0 ${showMessage ? 'opacity-100' : 'opacity-0'} transition rounded-sm pointer-events-none normal-case`}
+      >
+        Copied!
+      </span>
+    </button>
   )
 }
 

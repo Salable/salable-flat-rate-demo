@@ -81,7 +81,7 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
         <>
           <StringGeneratorForm check={check.data} />
 
-          {check.data && !check.data.capabilitiesEndDates['128'] ? (
+          {check.data && !check.data.capabilities.find((c) => c.capability === '128') ? (
             <div className='flex justify-center'>
               <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
                 <p>
