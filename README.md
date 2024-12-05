@@ -1,4 +1,4 @@
-# Salable "flat rate" web app demo
+# Salable Flat Rate Pricing Demo
 
 This app demonstrates using [flat rate](https://www.salable.app/features/flat-rate-pricing) billing with Salable.
 
