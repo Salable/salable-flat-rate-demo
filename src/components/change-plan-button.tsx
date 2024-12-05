@@ -20,10 +20,10 @@ export const ChangePlanButton = ({subscriptionUuid, planUuid, planName}: {subscr
       className='p-4 text-white rounded-md leading-none bg-blue-700 hover:bg-blue-900 transition flex items-center justify-center mr-2'
       disabled={isChangingSubscription}
     >
-      Move to {planName}
       {isChangingSubscription ? (
-        <div className='w-[14px] ml-2'><LoadingSpinner fill="white"/></div>
+        <div className='w-[14px] mr-2'><LoadingSpinner fill="white"/></div>
       ) : ''}
+      Move to {planName}
     </button>
   )
 }

@@ -40,7 +40,8 @@ export const PlanButton = ({session, planUuid}: {session: Session, planUuid: str
         className={`p-4 text-white rounded-md leading-none bg-blue-700 transition w-full flex justify-center ${!isFetchingUrl ? 'hover:bg-blue-900' : ''}`}
         onClick={handleClick}
       >
-        {!isFetchingUrl ? "Purchase plan" : <div className='w-[14px]'><LoadingSpinner fill="white"/></div>}
+        {isFetchingUrl ? <div className='w-[14px] mr-2'><LoadingSpinner fill="white"/></div> : null}
+        Purchase plan
       </button>
       {error ? (<div className='mt-1 text-red-600'>{error}</div>) : null}
     </div>

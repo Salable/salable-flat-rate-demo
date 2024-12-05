@@ -7,7 +7,7 @@ import {getErrorMessage} from "@/app/actions/get-error-message";
 export async function licenseCheck(granteeId: string): Promise<Result<LicenseCheckResponse | null>> {
   try {
     const res = await fetch(`${salableApiBaseUrl}/licenses/check?granteeIds=${granteeId}&productUuid=${salableProductUuid}`, {
-      headers: { 'x-api-key': env.SALABLE_API_KEY },
+      headers: { 'x-api-key': env.SALABLE_API_KEY, version: 'v2' },
       cache: "no-store"
     })
     if (res.ok) {
@@ -24,7 +24,6 @@ export async function licenseCheck(granteeId: string): Promise<Result<LicenseChe
       }
     }
     const error = await getErrorMessage(res)
-    console.log(error)
     return {
       data: null,
       error: 'Failed to fetch license check'

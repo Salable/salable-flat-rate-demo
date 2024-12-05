@@ -70,7 +70,7 @@ export const changeSubscription = async (subscriptionUuid: string, planUuid: str
       console.log(error)
       return {
         data: null,
-        error: 'Failed to cancel subscription'
+        error: 'Failed to update subscription'
       }
     }
 
@@ -91,7 +91,7 @@ export const changeSubscription = async (subscriptionUuid: string, planUuid: str
     })
   } catch (e) {
     console.error(e)
-    return {data: null, error: 'Failed to cancel subscription'}
+    return {data: null, error: 'Failed to update subscription'}
   }
 
   revalidatePath(`/settings/subscriptions/${subscriptionUuid}`)
