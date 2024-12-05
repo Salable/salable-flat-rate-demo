@@ -24,6 +24,7 @@ export async function licenseCheck(granteeId: string): Promise<Result<LicenseChe
       }
     }
     const error = await getErrorMessage(res)
+    console.log(error)
     return {
       data: null,
       error: 'Failed to fetch license check'
