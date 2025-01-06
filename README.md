@@ -1,4 +1,4 @@
-# Salable Flat Rate Pricing Demo
+![Salable Flat Rate Pricing Demo](https://raw.githubusercontent.com/Salable/flat-rate-demo/f6053bdc6bb4a4be12a1dc07e805cf7a9854a91b/public/flat-rate-banner.gif)
 
 This app demonstrates using [flat rate](https://www.salable.app/features/flat-rate-pricing) billing with Salable.
 
@@ -27,4 +27,9 @@ Cardholder name can be any name.
 User details are stored in a Turso database, and passwords are securely hashed with unique salts. The ID of the logged-in user is used as the `granteeId` when creating a license on Salable and is also used for the Salable license checks. If you're developing an app within an existing ecosystem like Trello or Slack, you can swap out these authentication checks with their native authentication systems.
 
 ### User sessions
-[Iron Session](https://github.com/vvo/iron-session) is used for storing user session data. 
+[Iron Session](https://github.com/vvo/iron-session) is used for storing user session data.
+
+## Need some help?
+Get answers and guidance from our own developers and commercial model consultants. If you have an implementation query, or you are not sure which pricing model to use for your app, our people are ready to help.
+
+[![Join salable discord](https://raw.githubusercontent.com/Salable/flat-rate-demo/f6053bdc6bb4a4be12a1dc07e805cf7a9854a91b/public/discord-button.png)](https://discord.com/channels/1064480618546737163/1219751191483781214)
