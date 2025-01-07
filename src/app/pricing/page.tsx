@@ -61,7 +61,7 @@ export default async function Pricing() {
             </div>
           </div>
           <p className='text-gray-500 text-lg mb-4'>
-            Everything you need to start building secure strings.
+            Everything you will ever need to build secure strings.
           </p>
           <div className='mb-6'>
             <div className='flex items-center'>
