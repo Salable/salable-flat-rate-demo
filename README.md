@@ -8,7 +8,7 @@ This app demonstrates using [flat rate](https://www.salable.app/features/flat-ra
 - [Iron sessions](https://github.com/vvo/iron-session)
 - [Turso (DB)](https://turso.tech/)
 - [Prisma (ORM)](https://www.prisma.io/)
-- [Turso + Prisma](https://www.prisma.io/docs/orm/overview/databases/turso) (warning: using Turso with Prisma is currently experimental)
+- [Turso + Prisma](https://www.prisma.io/docs/orm/overview/databases/turso) ⚠️ Warning: using Turso with Prisma is currently experimental
 
 ## Demo
 
