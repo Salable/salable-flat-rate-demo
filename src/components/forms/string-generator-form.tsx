@@ -42,7 +42,7 @@ export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null
       <>
         <label
           htmlFor={size}
-          className={`p-3 inline-flex items-center leading-none border-2 mr-2 rounded-md
+          className={`p-3 inline-flex items-center leading-none border-2 mr-2 rounded-md font-bold
             ${watch().bytes === size ? "border-black bg-black text-white" : ""}
             ${capability ? "cursor-pointer" : ""}
             ${!capability ? "bg-gray-200" : ""}
@@ -91,16 +91,17 @@ export const StringGeneratorForm = ({check}: {check: LicenseCheckResponse | null
 
 const CopyButton = ({text}: {text: string}) => {
   const [showMessage, setShowMessage] = useState(false)
+  const handleClick = async () => {
+    await navigator.clipboard.writeText(text)
+    setShowMessage(true)
+    setTimeout(() => {
+      setShowMessage(false)
+    }, 600)
+  }
   return (
     <button
       className='rounded-r-full font-bold bg-blue-700 hover:bg-blue-900 transition uppercase px-2 pr-[12px] text-white text-xs relative'
-      onClick={() => {
-        navigator.clipboard.writeText(text)
-        setShowMessage(true)
-        setTimeout(() => {
-          setShowMessage(false)
-        }, 600)
-      }}
+      onClick={handleClick}
     >
       Copy
       <span
