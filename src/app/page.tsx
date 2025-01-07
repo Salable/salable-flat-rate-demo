@@ -89,9 +89,11 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
                 </p>
                 <div className='flex mt-2'>
                   <Link
-                    href={'/settings/subscriptions'}
+                    href={'/dashboard/subscriptions'}
                     className='p-3 text-white rounded-md leading-none font-bold bg-blue-700 hover:bg-blue-900 transition'
-                  >Upgrade now</Link>
+                  >
+                    Upgrade now
+                  </Link>
                 </div>
               </div>
             </div>
