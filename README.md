@@ -32,4 +32,6 @@ User details are stored in a Turso database, and passwords are securely hashed w
 ## Need some help?
 Get answers and guidance from our own developers and commercial model consultants. If you have an implementation query, or you are not sure which pricing model to use for your app, our people are ready to help.
 
-[![Join salable discord](https://raw.githubusercontent.com/Salable/flat-rate-demo/f6053bdc6bb4a4be12a1dc07e805cf7a9854a91b/public/discord-button.png)](https://discord.com/channels/1064480618546737163/1219751191483781214)
+<a href="https://discord.com/channels/1064480618546737163/1219751191483781214">
+<img alt="Join the salable discord" src="https://raw.githubusercontent.com/Salable/flat-rate-demo/refs/heads/main/public/discord-button.png" width="258" />
+</a>
