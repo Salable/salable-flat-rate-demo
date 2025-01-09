@@ -17,8 +17,9 @@ export const Header = async () => {
     <header className='bg-white px-6'>
       <div className='max-w-[1500px] m-auto py-4 flex justify-between items-center'>
         <Link className='flex items-center' href='/'>
-          <div className='w-[30px] mr-2'><SalableLogo/></div>
-          <span>Salable Flat Rate Demo</span>
+          <div className='w-[30px]'><SalableLogo/></div>
+          <span className='w-[2px] h-[20px] bg-gray-200 mx-4' />
+          <span className='text-gray-600'>Flat Rate Demo</span>
         </Link>
         <div>
           <div className="flex justify-between items-center">
