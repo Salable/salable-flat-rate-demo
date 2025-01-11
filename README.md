@@ -1,8 +1,5 @@
 ![Salable Flat Rate Pricing Demo](https://raw.githubusercontent.com/Salable/flat-rate-demo/f6053bdc6bb4a4be12a1dc07e805cf7a9854a91b/public/flat-rate-banner.gif)
 
-[//]: # ([![Deploy to vercel]&#40;https://camo.githubusercontent.com/20bea215d35a4e28f2c92ea5b657d006b087687486858a40de2922a4636301ab/68747470733a2f2f76657263656c2e636f6d2f627574746f6e&#41;]&#40;https://vercel.com/clone?repository-url=https://github.com/avst-perrygeorge/flat-rate-demo&env=TURSO_DATABASE_URL,TURSO_AUTH_TOKEN,SALABLE_API_KEY,SESSION_COOKIE_NAME,SESSION_COOKIE_PASSWORD,NEXT_PUBLIC_APP_BASE_URL,NEXT_PUBLIC_SALABLE_API_BASE_URL,NEXT_PUBLIC_PRODUCT_UUID,NEXT_PUBLIC_SALABLE_PLAN_UUID,NEXT_PUBLIC_SALABLE_PRO_PLAN_UUID&#41;)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/avst-perrygeorge/flat-rate-demo&env=TURSO_DATABASE_URL,TURSO_AUTH_TOKEN,SALABLE_API_KEY,SESSION_COOKIE_NAME,SESSION_COOKIE_PASSWORD,NEXT_PUBLIC_APP_BASE_URL,NEXT_PUBLIC_SALABLE_API_BASE_URL,NEXT_PUBLIC_PRODUCT_UUID,NEXT_PUBLIC_SALABLE_PLAN_UUID,NEXT_PUBLIC_SALABLE_PRO_PLAN_UUID&project-name=salable-flat-rate-demo&repository-name=salable-flat-rate-demo)
-
 This app demonstrates using [flat rate](https://www.salable.app/features/flat-rate-pricing) billing with Salable.
 
 ## Tech stack
