@@ -47,7 +47,7 @@ swap out the included authentication system with theirs.
 
 ## Project Setup
 
-1. Clone the repo (`git clone git@github.com:Salable/flat-rate-demo.git`)
+1. Clone the repo (`git clone git@github.com:Salable/salable-flat-rate-demo.git`)
 2. Run `npm install`
 3. Create an `.env` file (`cp .env.example .env`)
 4. [Install Docker](https://www.docker.com/get-started/). If you already have Docker installed skip this step. If you don't want to run Docker for local development skip to the next stage for an alternative.
