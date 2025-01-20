@@ -30,7 +30,7 @@ mode so Stripe test cards can be used.
 
 **Card Number**: `4242 4242 4242 4242` \
 **Expiry Date**: Any future date (`09/42`) \
-**CVC**: Any 3 digit number (`123`) \
+**CVC**: Any 3-digit number (`123`) \
 **Cardholder Name**: Anything (`Mr John Doe`)
 
 ## Auth
