@@ -11,6 +11,8 @@ import {
   Subscription
 } from "@salable/node-sdk/dist/src/types";
 import {salable} from "@/app/salable";
+import {salableProductUuid} from "@/app/constants";
+import {SalableResponseError} from "@salable/node-sdk";
 
 export async function getAllSubscriptions(): Promise<Result<PaginatedSubscription>> {
   try {
@@ -24,14 +26,13 @@ export async function getAllSubscriptions(): Promise<Result<PaginatedSubscriptio
     const data = await salable.subscriptions.getAll({
       email: session.email,
       expand: ['plan'],
-      // sort: 'desc',
-      // productUuid: salableProductUuid
+      sort: 'desc',
+      productUuid: salableProductUuid
     })
     return {
       data, error: null
     }
   } catch (e) {
-    // handle salable error
     console.log(e)
     return {
       data: null,
@@ -46,13 +47,19 @@ export type SubscriptionExpandedPlanCurrency = Subscription & {
   }
 }
 
-export async function getOneSubscription(uuid: string): Promise<Result<SubscriptionExpandedPlanCurrency>> {
+export async function getOneSubscription(uuid: string): Promise<Result<SubscriptionExpandedPlanCurrency | null>> {
   try {
     const data = await salable.subscriptions.getOne(uuid, {expand: ['plan.currencies']}) as SubscriptionExpandedPlanCurrency
     return {
       data, error: null
     }
   } catch (e) {
+    if (e instanceof SalableResponseError && e.code === 'S1002') {
+      return {
+        data: null,
+        error: null
+      }
+    }
     console.log(e)
     return {
       data: null,

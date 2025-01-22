@@ -7,7 +7,7 @@ import Link from "next/link";
 import {CancelPlanButton} from "@/components/cancel-plan-button";
 import {FetchError} from "@/components/fetch-error";
 import {getSession} from "@/fetch/session";
-import {redirect} from "next/navigation";
+import {notFound, redirect} from "next/navigation";
 import {InvoicesLoading} from "@/components/loading/invoices-loading";
 
 export const metadata = {
@@ -26,6 +26,7 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ u
       </div>
     )
   }
+  if (!subscription.data) return notFound()
   if (subscription.data?.email !== session.email) redirect('/')
 
   return (
