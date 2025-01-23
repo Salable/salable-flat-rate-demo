@@ -4,7 +4,6 @@ import {cookies} from "next/headers";
 import {Session} from "@/app/actions/sign-in";
 import { Result } from "@/app/actions/checkout-link";
 import {
-  PaginatedSubscription,
   PaginatedSubscriptionInvoice,
   Plan,
   PlanCurrency,
@@ -14,7 +13,17 @@ import {salable} from "@/app/salable";
 import {salableProductUuid} from "@/app/constants";
 import {SalableResponseError} from "@salable/node-sdk";
 
-export async function getAllSubscriptions(): Promise<Result<PaginatedSubscription>> {
+export type SubscriptionExpandedPlan = Subscription & {
+  plan: Plan
+}
+
+export type GetAllSubscriptionsExpandedPlan = {
+  first: string;
+  last: string;
+  data: SubscriptionExpandedPlan[]
+}
+
+export async function getAllSubscriptions(): Promise<Result<GetAllSubscriptionsExpandedPlan>> {
   try {
     const session = await getIronSession<Session>(await cookies(), { password: env.SESSION_COOKIE_PASSWORD, cookieName: env.SESSION_COOKIE_NAME });
     if (!session) {
@@ -28,7 +37,7 @@ export async function getAllSubscriptions(): Promise<Result<PaginatedSubscriptio
       expand: ['plan'],
       sort: 'desc',
       productUuid: salableProductUuid,
-    })
+    }) as GetAllSubscriptionsExpandedPlan
     return {
       data, error: null
     }
