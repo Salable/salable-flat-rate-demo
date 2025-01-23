@@ -23,7 +23,6 @@ export const changeSubscription = async (subscriptionUuid: string, planUuid: str
       }
     })
   } catch (e) {
-    // handle salable error
     console.error(e)
     return {data: null, error: 'Failed to update subscription'}
   }
@@ -49,7 +48,6 @@ export const cancelSubscription = async (subscriptionUuid: string) => {
       }
     })
   } catch (e) {
-    // handle salable error
     console.log(e)
     return {
       data: null,

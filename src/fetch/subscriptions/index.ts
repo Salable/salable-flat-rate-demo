@@ -75,7 +75,6 @@ export const getSubscriptionInvoices = async (subscriptionUuid: string): Promise
       data, error: null
     }
   } catch (e) {
-    // handle salable error
     console.log(e)
     return {
       data: null,
