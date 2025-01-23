@@ -1,14 +1,13 @@
-import {getOneSubscription, SalableSubscription} from "@/fetch/subscriptions";
+import {getOneSubscription, getSubscriptionInvoices, SubscriptionExpandedPlanCurrency} from "@/fetch/subscriptions";
 import {salableBasicPlanUuid, salableProPlanUuid} from "@/app/constants";
 import React, {Suspense} from "react";
 import {ChangePlanButton} from "@/components/change-plan-button";
-import {getSubscriptionInvoices} from "@/app/actions/subscriptions";
 import {format} from "date-fns";
 import Link from "next/link";
 import {CancelPlanButton} from "@/components/cancel-plan-button";
 import {FetchError} from "@/components/fetch-error";
 import {getSession} from "@/fetch/session";
-import {redirect} from "next/navigation";
+import {notFound, redirect} from "next/navigation";
 import {InvoicesLoading} from "@/components/loading/invoices-loading";
 
 export const metadata = {
@@ -27,6 +26,7 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ u
       </div>
     )
   }
+  if (!subscription.data) return notFound()
   if (subscription.data?.email !== session.email) redirect('/')
 
   return (
@@ -44,7 +44,7 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ u
   )
 }
 
-const Subscription = async ({uuid, subscription}: { uuid: string, subscription: SalableSubscription }) => {
+const Subscription = async ({uuid, subscription}: { uuid: string, subscription: SubscriptionExpandedPlanCurrency }) => {
   return (
     <>
       <h1 className='text-3xl mb-6 flex items-center'>Subscription
@@ -96,13 +96,9 @@ const Invoices = async ({uuid}: { uuid: string }) => {
                   ) : null}
                 </div>
                 <div className='flex items-center'>
-                          <span
-                            className='mr-2'>£{(invoice.lines.data[0].quantity * invoice.lines.data[0].price.unit_amount) / 100}</span>
+                  <span className='mr-2'>£{(invoice.lines.data[0].quantity * invoice.lines.data[0].price.unit_amount) / 100}</span>
                   {invoice.automatically_finalizes_at && invoice.lines.data[0].price.unit_amount ? (
-                    <>
-                              <span
-                                className='p-1 leading-none uppercase rounded-sm bg-gray-200 text-gray-500 text-xs font-bold'>DRAFT</span>
-                    </>
+                    <span className='p-1 leading-none uppercase rounded-sm bg-gray-200 text-gray-500 text-xs font-bold'>DRAFT</span>
                   ) : null}
                   {invoice.hosted_invoice_url ? (
                     <Link className='text-blue-700 hover:underline' href={invoice.hosted_invoice_url}>View</Link>
