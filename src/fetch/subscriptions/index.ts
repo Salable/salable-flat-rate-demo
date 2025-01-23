@@ -27,7 +27,7 @@ export async function getAllSubscriptions(): Promise<Result<PaginatedSubscriptio
       email: session.email,
       expand: ['plan'],
       sort: 'desc',
-      productUuid: salableProductUuid
+      productUuid: salableProductUuid,
     })
     return {
       data, error: null
