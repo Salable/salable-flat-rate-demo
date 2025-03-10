@@ -9,7 +9,6 @@ export async function licenseCheck(granteeId: string): Promise<Result<CheckLicen
       productUuid: salableProductUuid,
       granteeIds: [granteeId],
     })
-    console.log('check', check)
     return {
       data: check,
       error: null
