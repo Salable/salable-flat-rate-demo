@@ -1,4 +1,4 @@
-import {licenseCheck} from "@/fetch/licenses/check";
+import {entitlementsCheck} from "@/fetch/entitlements/check";
 import React, {Suspense} from "react";
 import {StringGeneratorForm} from "@/components/forms/string-generator-form";
 import {getSession} from "@/fetch/session";
@@ -7,7 +7,7 @@ import {FetchError} from "@/components/fetch-error";
 import Link from "next/link";
 import {LockIcon} from "@/components/icons/lock-icon";
 import LoadingSpinner from "@/components/loading-spinner";
-import {getAllLicenses} from "@/fetch/licenses/get-all";
+import {getAllSubscriptions} from "@/fetch/subscriptions";
 
 export const metadata = {
   title: 'Salable Flat Rate Demo',
@@ -43,12 +43,9 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
     await new Promise<void>(async (resolve) => {
       while (true) {
         try {
-          const licenses = await getAllLicenses({
-            granteeId: session.uuid,
-            planUuid: search.planUuid
-          });
-          if (licenses.error) break
-          if (licenses.data?.data.find((l) => l.planUuid === search.planUuid)) {
+          const subscriptions = await getAllSubscriptions(search.planUuid);
+          if (subscriptions.error) break
+          if (subscriptions.data?.data.find((l) => l.planUuid === search.planUuid)) {
             resolve()
             break
           }
@@ -60,7 +57,7 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
       }
     })
   }
-  const check = session?.uuid ? await licenseCheck(session.uuid) : {
+  const check = session?.uuid ? await entitlementsCheck(session.uuid) : {
     data: null, error: null
   }
 
@@ -70,7 +67,7 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
         <>
           <StringGeneratorForm check={check.data} />
 
-          {check.data && !check.data.capabilities.find((c) => c.capability === '128') ? (
+          {check.data?.features.length && !check.data.features.find((f) => f.feature === '128') ? (
             <div className='flex justify-center'>
               <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
                 <p>
@@ -88,7 +85,7 @@ const StringGenerator = async ({search}: {search: Record<string, string>}) => {
             </div>
           ) : null}
 
-          {!check.data ? (
+          {!check.data?.features.length ? (
             <div className='flex justify-center max-w-[400px] mx-auto'>
               <div className='rounded-md inline-flex flex-col mx-auto mt-6 p-3 border-2'>
                 <p>To start creating secure strings subscribe to a plan from our pricing table and get started!</p>
