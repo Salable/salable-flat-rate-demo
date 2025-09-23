@@ -23,7 +23,7 @@ export type GetAllSubscriptionsExpandedPlan = {
   data: SubscriptionExpandedPlan[]
 }
 
-export async function getAllSubscriptions(): Promise<Result<GetAllSubscriptionsExpandedPlan>> {
+export async function getAllSubscriptions(planUuid?: string): Promise<Result<GetAllSubscriptionsExpandedPlan>> {
   try {
     const session = await getIronSession<Session>(await cookies(), { password: env.SESSION_COOKIE_PASSWORD, cookieName: env.SESSION_COOKIE_NAME });
     if (!session) {
@@ -37,6 +37,7 @@ export async function getAllSubscriptions(): Promise<Result<GetAllSubscriptionsE
       expand: ['plan'],
       sort: 'desc',
       productUuid: salableProductUuid,
+      ...(planUuid && {planUuid})
     }) as GetAllSubscriptionsExpandedPlan
     return {
       data, error: null
@@ -58,7 +59,7 @@ export type SubscriptionExpandedPlanCurrency = Subscription & {
 
 export async function getOneSubscription(uuid: string): Promise<Result<SubscriptionExpandedPlanCurrency | null>> {
   try {
-    const data = await salable.subscriptions.getOne(uuid, {expand: ['plan.currencies']}) as SubscriptionExpandedPlanCurrency
+    const data = await salable.subscriptions.getOne(uuid, {expand: ['plan']}) as SubscriptionExpandedPlanCurrency
     return {
       data, error: null
     }
