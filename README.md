@@ -72,7 +72,7 @@ To remove the requirement of Docker we will change the db provider to `sqlite`.
    import { PrismaLibSQL } from "@prisma/adapter-libsql";
    import { createClient } from "@libsql/client";
    import { env } from "@/app/environment";
-   
+
    const libsql = createClient({ url: env.DATABASE_URL });
    const adapter = new PrismaLibSQL(libsql);
    export const prismaClient = new PrismaClient({ adapter });
@@ -95,21 +95,20 @@ To remove the requirement of Docker we will change the db provider to `sqlite`.
 #### Create Plan
 
 1. Go to the `Plans` tab on the sidebar and select `Create Plan`
-2. Set the plan name as `Basic` and optionally provide a description.
-3. Press `Continue` to configure `License Type` information.
-4. For the type of plan select `Standard`.
-5. Select `Month` for subscription cycle.
-6. Select `Flat rate` license type.
-7. Select `Paid` to make it a paid plan.
-8. Currencies will then appear, input the cost of the plan’s subscription which will be billed to a customer every month.
-9. Continue to `Assign values`.
-10. This is section is for assigning feature values that can be used on pricing tables. This is not required to get set up.
-11. Click `Continue` to `Capabilities`.
-12. Create three capabilities of `16`, `32` and `64`. These will be used to lock features behind the license check in the demo app.
-13. Create Plan.
-14. Repeat the above steps for a `Pro` plan but with the changes in the next steps.
-15. Set a higher monthly cost to the `Basic` plan.
-16. Select all capabilities `16`, `32` and `64` and create a new capability of `128`.
+2. Set the plan name as `Basic`.
+3. Select `Flat rate` for pricing model.
+4. Select `Month` for subscription cycle.
+5. Select `Paid` to make it a paid plan.
+6. Currencies will then appear, input the cost of the plan’s subscription which will be billed to a customer every month.
+7. Click `Next` to proceed to Features.
+8. This is section is for create feature and assign values to plans. This is not required to get set up.
+9. In the Create Feature modal, set the feature name.
+10. Select `Boolean`, `Text` and `Numeric` as the feature type.
+11. Set default value as needed and click `Next`.
+12. In the assign values to plans tab you can confirm or update feature values for existing plans.
+13. Assign these features to your plan by setting their values.
+14. Click `Create` to create feature.
+15. Click on `Create Plan` to finsih.
 
 ### Update Environment Variables
 
