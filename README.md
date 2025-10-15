@@ -103,12 +103,10 @@ To remove the requirement of Docker we will change the db provider to `sqlite`.
 7. Click `Next` to proceed to Features.
 8. This is section is for create feature and assign values to plans. This is not required to get set up.
 9. In the Create Feature modal, set the feature name.
-10. Select `Boolean`, `Text` and `Numeric` as the feature type.
-11. Set default value as needed and click `Next`.
-12. In the assign values to plans tab you can confirm or update feature values for existing plans.
-13. Assign these features to your plan by setting their values.
-14. Click `Create` to create feature.
-15. Click on `Create Plan` to finsih.
+10. Create three different features of type `Boolean`. Name them 16, 32 and 64 with a default value of true.
+11. Repeat the steps to create a Pro plan but set the cost to be 2. Create a new `Boolean` feature called 128 with a default value of false. Click next and ensure its set to false for the existing `Basic` plan. 
+12. Set the feature 128 value to be true on the Pro plan.
+13. Create the plan
 
 ### Update Environment Variables
 
