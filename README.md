@@ -99,14 +99,13 @@ To remove the requirement of Docker we will change the db provider to `sqlite`.
 3. Select `Flat rate` for pricing model.
 4. Select `Month` for subscription cycle.
 5. Select `Paid` to make it a paid plan.
-6. Currencies will then appear, input the cost of the plan’s subscription which will be billed to a customer every month.
+6. Currencies will then appear, input the cost of 1, this cost will be billed to a customer every month.
 7. Click `Next` to proceed to Features.
-8. This is section is for create feature and assign values to plans. This is not required to get set up.
-9. In the Create Feature modal, set the feature name.
-10. Create three different features of type `Boolean`. Name them 16, 32 and 64 with a default value of true.
-11. Repeat the steps to create a Pro plan but set the cost to be 2. Create a new `Boolean` feature called 128 with a default value of false. Click next and ensure its set to false for the existing `Basic` plan. 
-12. Set the feature 128 value to be true on the Pro plan.
-13. Create the plan
+8. This is section is for creating features and assigning values to plans.. This is not required to get set up.
+9. Click Create feature and create three different features of type Boolean. Name them 16, 32 and 64 with a default value of true.
+10. Repeat the steps to create a Pro plan but set the cost to be 2. Create a new `Boolean` feature called 128 with a default value of false. Click next and ensure its set to false for the existing `Basic` plan. 
+11. Set the feature 128 value to be true on the Pro plan.
+12. Create the plan
 
 ### Update Environment Variables
 
